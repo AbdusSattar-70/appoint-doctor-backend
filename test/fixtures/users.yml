@@ -1,0 +1,39 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  age: 9.99
+  address: 
+  role: MyString
+  photo: MyString
+  email: MyString
+  encrypted_password: MyString
+  reset_password_token: MyString
+  jti: MyString
+  qualification: MyString
+  description: MyText
+  experiences: 9.99
+  available_from: 2023-07-31 10:24:40
+  available_to: 2023-07-31 10:24:40
+  consultation_fee: 9.99
+  rating: 9.99
+  specialization: MyString
+
+two:
+  name: MyString
+  age: 9.99
+  address: 
+  role: MyString
+  photo: MyString
+  email: MyString
+  encrypted_password: MyString
+  reset_password_token: MyString
+  jti: MyString
+  qualification: MyString
+  description: MyText
+  experiences: 9.99
+  available_from: 2023-07-31 10:24:40
+  available_to: 2023-07-31 10:24:40
+  consultation_fee: 9.99
+  rating: 9.99
+  specialization: MyString
