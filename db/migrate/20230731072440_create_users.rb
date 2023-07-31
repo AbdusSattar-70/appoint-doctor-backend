@@ -6,9 +6,6 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.json :address
       t.string :role
       t.string :photo
-      t.string :email
-      t.string :encrypted_password
-      t.string :reset_password_token
       t.string :jti
       t.string :qualification
       t.text :description
@@ -21,8 +18,5 @@ class CreateUsers < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :users, :email, unique: true
-    add_index :users, :reset_password_token, unique: true
-    add_index :users, :jti, unique: true
   end
 end
