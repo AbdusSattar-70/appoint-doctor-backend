@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   ROLES.each do |role_name|
     define_method "#{role_name}?" do
-      role = role_name
+      role_name == role
     end
   end
 
