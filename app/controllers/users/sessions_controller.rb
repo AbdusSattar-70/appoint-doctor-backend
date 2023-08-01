@@ -45,7 +45,7 @@ class Users::SessionsController < Devise::SessionsController
         }
       }, status: :unauthorized
     end
-  rescue JWT::DecodeError => e
+  rescue JWT::DecodeError =>
     render json: {
       status: {
         code: 401, message: 'Unauthorized: Invalid JWT token'

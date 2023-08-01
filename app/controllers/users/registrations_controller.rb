@@ -2,11 +2,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params
   respond_to :json
 
-  # GET /users/sign_up
-  def new
-    super
-  end
-
   # POST /users
   def create
     if params[:user][:role] == 'doctor'

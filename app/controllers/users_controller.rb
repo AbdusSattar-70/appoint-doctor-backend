@@ -6,11 +6,12 @@ class UsersController < ApplicationController
   def index
     role = params[:role]
 
-    @users = if role == 'doctor'
+    @users = case role
+             when 'doctor'
                User.doctors
-             elsif role == 'patient'
+             when 'patient'
                User.patients
-             elsif role == 'admin'
+             when 'admin'
                User.admin_users
              else
                # If the role is not specified or invalid, fetch all users
