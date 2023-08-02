@@ -14,7 +14,6 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '8253200637e226b1a244264b6b7f69d55d21401d0fbbcc24b24bd95d8b7352db2a7f3fa1e42fb889c131b65f537493390efdec5276664e4fadc59fbdc3c8660b'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -126,7 +125,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '3a306ab1cd79222bb13285e9bf0c0f8356f7104be4683a222e63cedcc02b596c55a4f673eaa7633824fb3c6f5d15ae68bffb6782f4b13fe5e222b6d50d774afb'
+  # config.pepper = '680db4b9f4967e81f313078f66a23a78a3782824cab73799272f8ae9c357158a1e63d40a718e03a92817c087f345c8466159ad5632104d0b99ae7b5a729dc399'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -263,7 +262,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ['*/*', :html, :turbo_stream]
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -310,4 +309,11 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.dispatch_requests = [['POST', %r{^/users/sign_in$}]]
+    jwt.revocation_requests = [['DELETE', %r{^/users/sign_out$}]]
+    jwt.expiration_time = 1500.minutes.to_i
+  end
 end
