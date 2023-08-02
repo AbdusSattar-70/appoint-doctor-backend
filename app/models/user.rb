@@ -34,9 +34,9 @@ class User < ApplicationRecord
     end
   end
 
-  def valid_name?(name)
-    self.name == name
-  end
+  # def jwt_payload
+  #   super
+  # end
 
   private
 
