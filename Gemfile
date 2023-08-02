@@ -49,3 +49,4 @@ end
 gem 'cancancan'
 gem 'devise'
 gem 'devise-jwt'
+gem 'rswag'

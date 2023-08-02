@@ -13,7 +13,7 @@ class User < ApplicationRecord
   scope :admin_users, -> { where(role: 'admin') }
 
   validates :name, :email, :photo, :age, :role, :address, presence: true
-  validates :password, :password_confirmation, presence: true, length: { minimum: 6 }
+  validates :password, :password_confirmation, presence: true, length: { minimum: 6}
 
   ROLES = %w[super_admin admin doctor patient general].freeze
 
