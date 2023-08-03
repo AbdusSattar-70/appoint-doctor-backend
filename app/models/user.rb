@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :name, :email, :photo, :age, :role, :address, presence: true
   validates :password, :password_confirmation, presence: true, length: { minimum: 6}
 
-  ROLES = %w[super_admin admin doctor patient general].freeze
+  ROLES = %w[super_admin admin doctor patient ].freeze
 
   ROLES.each do |role_name|
     define_method "#{role_name}?" do
@@ -27,7 +27,7 @@ class User < ApplicationRecord
     case role
     when 'doctor'
       doctor_appointments
-    when 'patient'
+    when 'patient', 'super_admin', 'admin'
       patient_appointments
     else
       []

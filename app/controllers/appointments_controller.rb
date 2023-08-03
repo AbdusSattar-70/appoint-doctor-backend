@@ -1,11 +1,25 @@
 class AppointmentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_appointment, only: %i[show update destroy]
+
 
   # GET /appointments
   def index
-    @appointments = Appointment.all
-    render json: @appointments
+  if current_user
+    if current_user.doctor?
+      @appointments = current_user.doctor_appointments
+    elsif current_user.patient? || current_user.super_admin? || current_user.admin?
+      @appointments = current_user.patient_appointments
+    else
+      @appointments = []
+    end
+  else
+    render json: { error: 'User not authenticated' }, status: :unauthorized
+    return
   end
+
+  render json: @appointments
+end
 
   # GET /appointments/:id
   def show
@@ -14,8 +28,6 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments
   def create
-    appointment_params = appointment_params_with_role_check
-
     @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
@@ -56,15 +68,4 @@ class AppointmentsController < ApplicationController
     )
   end
 
-  def appointment_params_with_role_check
-    appointment_params = appointment_params()
-    # Check if the user is a doctor or patient and set the corresponding user_id
-    if current_user.doctor?
-      appointment_params[:doctor_id] = current_user.id
-    elsif current_user.patient?
-      appointment_params[:patient_id] = current_user.id
-    end
-
-    appointment_params
-  end
 end
