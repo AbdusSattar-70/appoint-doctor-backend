@@ -92,14 +92,14 @@ describe 'Users API' do
           photo: { type: :string },
           password: { type: :string },
           password_confirmation: { type: :string },
-          qualification: {type: :string},
-          description: {type: :text},
-          experiences: {type: :decimal},
-          available_from: {type: :datetime},
-          available_to: {type: :datetime},
-          consultation_fee: {type: :decimal},
-          rating: {type: :decimal},
-          specialization: {type: :string},
+          qualification: { type: :string },
+          description: { type: :text },
+          experiences: { type: :decimal },
+          available_from: { type: :datetime },
+          available_to: { type: :datetime },
+          consultation_fee: { type: :decimal },
+          rating: { type: :decimal },
+          specialization: { type: :string }
         },
         required: %w[name role age email address photo password password_confirmation]
       }

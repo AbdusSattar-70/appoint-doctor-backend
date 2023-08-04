@@ -13,11 +13,11 @@ RSpec.describe UsersController, type: :controller do
       get :index
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)).to match_array([
-        super_admin.as_json(only: %i[id name role]),
-        admin.as_json(only: %i[id name role]),
-        doctor.as_json(only: %i[id name role]),
-        patient.as_json(only: %i[id name role])
-      ])
+                                                         super_admin.as_json(only: %i[id name role]),
+                                                         admin.as_json(only: %i[id name role]),
+                                                         doctor.as_json(only: %i[id name role]),
+                                                         patient.as_json(only: %i[id name role])
+                                                       ])
     end
 
     context 'when role parameter is specified' do
@@ -33,11 +33,11 @@ RSpec.describe UsersController, type: :controller do
         get :index, params: { role: 'invalid_role' }
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)).to match_array([
-          super_admin.as_json(only: %i[id name role]),
-          admin.as_json(only: %i[id name role]),
-          doctor.as_json(only: %i[id name role]),
-          patient.as_json(only: %i[id name role])
-        ])
+                                                           super_admin.as_json(only: %i[id name role]),
+                                                           admin.as_json(only: %i[id name role]),
+                                                           doctor.as_json(only: %i[id name role]),
+                                                           patient.as_json(only: %i[id name role])
+                                                         ])
       end
     end
   end

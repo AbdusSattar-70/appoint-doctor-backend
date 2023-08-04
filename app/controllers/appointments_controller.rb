@@ -5,23 +5,23 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
-  if current_user
-    if current_user.doctor?
-      @appointments = current_user.doctor_appointments
-    elsif current_user.patient?
-      @appointments = current_user.patient_appointments
-    elsif current_user.super_admin? || current_user.admin?
-      @appointments = Appointment.all
-      else
-        @appointments = []
+    if current_user
+      @appointments = if current_user.doctor?
+                        current_user.doctor_appointments
+                      elsif current_user.patient?
+                        current_user.patient_appointments
+                      elsif current_user.super_admin? || current_user.admin?
+                        Appointment.all
+                      else
+                        []
+                      end
+    else
+      render json: { error: 'User not authenticated' }, status: :unauthorized
+      return
     end
-  else
-    render json: { error: 'User not authenticated' }, status: :unauthorized
-    return
-  end
 
-  render json: @appointments
-end
+    render json: @appointments
+  end
 
   # GET /appointments/:id
   def show
@@ -69,5 +69,4 @@ end
       location: %i[street state city zip_code]
     )
   end
-
 end

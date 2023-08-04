@@ -4,6 +4,6 @@ class Appointment < ApplicationRecord
 
   validates :appointment_date, :doctor_id, :patient_id, :status, :location, presence: true
 
-  scope :for_doctor, ->(doctor_id) { where(doctor_id: doctor_id) }
-  scope :for_patient, ->(patient_id) { where(patient_id: patient_id) }
+  scope :for_doctor, ->(doctor_id) { where(doctor_id:) }
+  scope :for_patient, ->(patient_id) { where(patient_id:) }
 end
