@@ -41,29 +41,18 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     context 'when creating a doctor' do
       let(:doctor_params) do
         {
-          user: {
-            name: 'Dr. Smith',
-            age: 40,
-            email: 'smith@example.com',
-            photo: 'doctor_photo.png',
-            role: 'doctor',
-            password: 'password',
-            password_confirmation: 'password',
-            address: {
-              street: '456 Oak St',
-              city: 'Townsville',
-              state: 'Stateland',
-              zip_code: '54321'
-            },
-            qualification: 'MBBS',
-            description: 'Experienced doctor with expertise in internal medicine',
-            experiences: '10+ years',
-            available_from: '9:00 AM',
-            available_to: '5:00 PM',
-            consultation_fee: 100,
-            rating: 4.8,
-            specialization: 'Internal Medicine'
-          }
+          user: { name: 'Dr. Smith', age: 40, email: 'smith@example.com', photo: 'doctor_photo.png', role: 'doctor',
+                  password: 'password',
+                  password_confirmation: 'password',
+                  address: { street: '456 Oak St', city: 'Townsville', state: 'Stateland', zip_code: '54321' },
+                  qualification: 'MBBS',
+                  description: 'Experienced doctor with expertise in internal medicine',
+                  experiences: '10+ years',
+                  available_from: '9:00 AM',
+                  available_to: '5:00 PM',
+                  consultation_fee: 100,
+                  rating: 4.8,
+                  specialization: 'Internal Medicine' }
 
         }
       end
