@@ -89,8 +89,6 @@ RSpec.describe 'Appointments API', type: :request do
           run_test!
         end
 
-
-
         it 'returns a list of appointments' do
           get '/appointments', headers: { Authorization: patient_token }
           expect(response).to have_http_status(:success)
