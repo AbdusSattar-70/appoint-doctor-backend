@@ -27,7 +27,7 @@ class User < ApplicationRecord
     case role
     when 'doctor'
       doctor_appointments
-    when 'patient', 'super_admin', 'admin'
+    when 'patient'
       patient_appointments
     else
       []

@@ -8,10 +8,12 @@ class AppointmentsController < ApplicationController
   if current_user
     if current_user.doctor?
       @appointments = current_user.doctor_appointments
-    elsif current_user.patient? || current_user.super_admin? || current_user.admin?
+    elsif current_user.patient?
       @appointments = current_user.patient_appointments
-    else
-      @appointments = []
+    elsif current_user.super_admin? || current_user.admin?
+      @appointments = Appointment.all
+      else
+        @appointments = []
     end
   else
     render json: { error: 'User not authenticated' }, status: :unauthorized
