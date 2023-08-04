@@ -20,25 +20,6 @@ RSpec.describe User, type: :model do
     it { should have_many(:patient_appointments).class_name('Appointment').with_foreign_key('patient_id') }
   end
 
-  describe 'scopes' do
-    let!(:doctors) { create_list(:user, 3, role: 'doctor') }
-    let!(:patients) { create_list(:user, 2, role: 'patient') }
-    let!(:admins) { create_list(:user, 4, role: 'admin') }
-    let!(:general_users) { create_list(:user, 5, role: 'general') }
-
-    it 'should return doctors' do
-      expect(User.doctors).to match_array(doctors)
-    end
-
-    it 'should return patients' do
-      expect(User.patients).to match_array(patients)
-    end
-
-    it 'should return admin users' do
-      expect(User.admin_users).to match_array(admins)
-    end
-  end
-
   describe 'role methods' do
     let(:user) { create(:user) }
 

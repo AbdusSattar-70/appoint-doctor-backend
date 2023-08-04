@@ -20,7 +20,6 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
-
   protected
 
   def respond_to_on_destroy

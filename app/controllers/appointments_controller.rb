@@ -2,7 +2,6 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_appointment, only: %i[show update destroy]
 
-
   # GET /appointments
   def index
     if current_user

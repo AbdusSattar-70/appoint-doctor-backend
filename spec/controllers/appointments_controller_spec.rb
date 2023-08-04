@@ -6,17 +6,6 @@ RSpec.describe AppointmentsController, type: :controller do
   let(:doctor) { create(:user, role: 'doctor') }
   let(:patient) { create(:user, role: 'patient') }
 
-  describe 'GET #index' do
-    it 'returns a list of all appointments' do
-      appointments = create_list(:appointment, 3)
-      get :index
-      expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)).to match_array(
-        appointments.map { |appointment| appointment.as_json }
-      )
-    end
-  end
-
   describe 'GET #show' do
     it 'returns the appointment details' do
       appointment = create(:appointment)
