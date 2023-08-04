@@ -49,3 +49,5 @@ end
 gem 'cancancan'
 gem 'devise'
 gem 'devise-jwt'
+gem 'rspec-rails'
+gem 'rswag'

@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :name, :email, :photo, :age, :role, :address, presence: true
   validates :password, :password_confirmation, presence: true, length: { minimum: 6 }
 
-  ROLES = %w[super_admin admin doctor patient general].freeze
+  ROLES = %w[super_admin admin doctor patient].freeze
 
   ROLES.each do |role_name|
     define_method "#{role_name}?" do
@@ -34,9 +34,9 @@ class User < ApplicationRecord
     end
   end
 
-  # def jwt_payload
-  #   super
-  # end
+  def valid_name?(name)
+    self.name == name
+  end
 
   private
 

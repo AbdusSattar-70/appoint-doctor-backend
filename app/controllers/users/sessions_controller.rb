@@ -1,20 +1,26 @@
 class Users::SessionsController < Devise::SessionsController
+  before_action :configure_sign_in_params, only: %i[create]
   respond_to :json
 
-  protected
+  def create
+    @user = User.find_for_database_authentication(email: sign_in_params[:email])
 
-  def respond_with(_resource, options = {})
-    message = options[:message] || 'Successfully Signed In'
-    status_code = options[:status_code] || :ok
-
-    render json: {
-      status: {
-        code: Rack::Utils.status_code(status_code),
-        message:,
-        data: current_user
-      }
-    }, status: status_code
+    if @user.nil?
+      render json: { message: 'Invalid email', data: { code: 401 } }, status: :unauthorized
+    elsif !@user.valid_for_authentication?
+      render json: { message: 'Invalid name or password', data: { code: 402 } }, status: :unauthorized
+    elsif !@user.valid_password?(sign_in_params[:password])
+      render json: { message: 'Invalid password', data: { code: 403 } }, status: :unauthorized
+    elsif !@user.valid_name?(sign_in_params[:name])
+      render json: { message: 'Invalid name', data: { code: 404 } }, status: :unauthorized
+    else
+      sign_in(:user, @user)
+      jwt_token = JWT.encode({ sub: @user.id }, Rails.application.credentials.fetch(:secret_key_base))
+      render json: { message: 'Successfully Signed In', data: @user, token: jwt_token }
+    end
   end
+
+  protected
 
   def respond_to_on_destroy
     jwt_token = request.headers['Authorization']&.split(' ')&.last
@@ -51,5 +57,9 @@ class Users::SessionsController < Devise::SessionsController
         code: 401, message: 'Unauthorized: Invalid JWT token'
       }
     }, status: :unauthorized
+  end
+
+  def configure_sign_in_params
+    params.require(:user).permit(:email, :password, :name)
   end
 end
