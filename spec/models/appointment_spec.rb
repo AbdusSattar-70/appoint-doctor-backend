@@ -45,5 +45,4 @@ RSpec.describe Appointment, type: :model do
       expect(appointment2).to be_valid
     end
   end
-
 end
