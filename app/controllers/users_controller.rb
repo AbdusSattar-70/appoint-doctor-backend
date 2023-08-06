@@ -27,6 +27,16 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  # GET /users/doctors/:id
+  def show_doctor
+    @user = User.doctors.find_by(id: params[:id])
+    if @user.nil?
+      render json: { error: 'Doctor not found' }, status: :not_found
+    else
+      render json: @user
+    end
+  end
+
   # DELETE /users/:id
   def destroy
     @user = User.find(params[:id])
