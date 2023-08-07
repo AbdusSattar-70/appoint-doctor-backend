@@ -33,18 +33,41 @@ class UsersController < ApplicationController
     if @user.nil?
       render json: { error: 'Doctor not found' }, status: :not_found
     else
-      render json: @user
+      @appointments = @user.appointments
+      render json: { user: @user, appointments: @appointments }
     end
   end
 
   # DELETE /users/:id
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    head :no_content
+    @user = User.find_by(id: params[:id])
+
+    if @user.nil?
+      render json: { message: 'Not Found', data: { code: 401 } }, status: :not_found
+    else
+      begin
+        @user.destroy
+        head :no_content
+      rescue ActiveRecord::InvalidForeignKey => e
+        referenced_records = find_referenced_records(@user)
+        render json: { message: 'Cannot delete the user', references: referenced_records,
+                       data: { code: 402 } }, status: :unprocessable_entity
+      rescue StandardError => e
+        render json: { message: 'An error occurred while processing the request.', data: { code: 403 } },
+               status: :internal_server_error
+      end
+    end
   end
 
+
   private
+
+  def find_referenced_records(user)
+    referenced_records = []
+    appointments = user.appointments
+    referenced_records << appointments if user.appointments.any?
+    referenced_records
+  end
 
   def authorize_super_admin_or_admin
     return if current_user.super_admin? || current_user.admin?
