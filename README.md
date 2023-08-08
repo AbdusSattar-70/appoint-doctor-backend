@@ -30,6 +30,10 @@
 
 <!-- PROJECT DESCRIPTION -->
 
+## 🪵 Documentation <a name="key-features"></a>
+
+- [ API Documentation Here](https://documenter.getpostman.com/view/26957552/2s9XxsVGHT)
+
 # 📖 Appoint With A Doctor Back-End <a name="about-project"></a>
 
 The Appoint Doctor Project is a user-friendly web app for booking doctor appointments. It offers secure login using Devise-jwt and supports multiple user roles (patient, doctor, admin). Admins can add/delete doctors. Users can schedule/cancel appointments and view their appointment list. The app simplifies the process of finding and managing medical appointments online.
@@ -179,10 +183,6 @@ rails s
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 [See Live on render]()
-
-## 🪵 Documentation <a name="key-features"></a>
-
-- [ API Documentation Here](https://documenter.getpostman.com/view/26957552/2s9XxsVGHT)
 
 ## 🪵 Link to Frontend <a name="key-features"></a>
 

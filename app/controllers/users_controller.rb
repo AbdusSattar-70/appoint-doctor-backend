@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: %i[destroy]
+  before_action :authenticate_user!, only: [:destroy]
   before_action :authorize_super_admin_or_admin, only: %i[create destroy]
 
   # GET /users
@@ -48,24 +48,23 @@ class UsersController < ApplicationController
       begin
         @user.destroy
         head :no_content
-      rescue ActiveRecord::InvalidForeignKey => e
+      rescue ActiveRecord::InvalidForeignKey
         referenced_records = find_referenced_records(@user)
         render json: { message: 'Cannot delete the user', references: referenced_records,
                        data: { code: 402 } }, status: :unprocessable_entity
-      rescue StandardError => e
+      rescue StandardError
         render json: { message: 'An error occurred while processing the request.', data: { code: 403 } },
                status: :internal_server_error
       end
     end
   end
 
-
   private
 
   def find_referenced_records(user)
     referenced_records = []
     appointments = user.appointments
-    referenced_records << appointments if user.appointments.any?
+    referenced_records << appointments if appointments.any?
     referenced_records
   end
 
