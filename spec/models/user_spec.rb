@@ -14,3 +14,6 @@ RSpec.describe User, type: :model do
         expect(user1.patient?).to eq(true)
       end
     end
+
+    describe 'valid_name? method' do
+        let(:user) { create(:user, :patient) }
