@@ -4,19 +4,18 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     @user = User.find_for_database_authentication(email: sign_in_params[:email])
-  
-    case
-    when @user.nil?
+
+    if @user.nil?
       render json: { message: 'Invalid email', data: { code: 401 } }, status: :unauthorized
-    when !@user.valid_for_authentication?
+    elsif !@user.valid_for_authentication?
       render json: { message: 'Invalid name or password', data: { code: 402 } }, status: :unauthorized
-    when !@user.valid_password?(sign_in_params[:password])
+    elsif !@user.valid_password?(sign_in_params[:password])
       render json: { message: 'Invalid password', data: { code: 403 } }, status: :unauthorized
-    when !@user.valid_name?(sign_in_params[:name])
+    elsif !@user.valid_name?(sign_in_params[:name])
       render json: { message: 'Invalid name', data: { code: 404 } }, status: :unauthorized
     else
       sign_in(:user, @user)
-      render json: { message: 'Successfully Signed In', data: @user}
+      render json: { message: 'Successfully Signed In', data: @user }
     end
   end
 
