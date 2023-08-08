@@ -26,3 +26,6 @@ RSpec.describe User, type: :model do
             expect(user.valid_name?('John Doe5')).to eq(false)
           end
         end
+    describe 'callbacks' do
+            let(:user) { create(:user, :doctor) }
+            it 'downcases the role before saving' do
