@@ -29,3 +29,8 @@ RSpec.describe Appointment, type: :model do
       appointment1.appointment_date = nil
       expect(appointment1).not_to be_valid
     end
+
+    it 'is not valid when patient is not present' do
+        appointment1.patient_id = nil
+        expect(appointment1).not_to be_valid
+      end
