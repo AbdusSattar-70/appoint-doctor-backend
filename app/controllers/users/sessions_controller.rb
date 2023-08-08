@@ -16,6 +16,8 @@ class Users::SessionsController < Devise::SessionsController
     else
       sign_in(:user, @user)
       render json: { message: 'Successfully Signed In', data: @user }
+      jwt_token = JWT.encode({ sub: @user.id }, Rails.application.credentials.fetch(:secret_key_base))
+      render json: { message: 'Successfully Signed In', data: @user, token: jwt_token }
     end
   end
 
