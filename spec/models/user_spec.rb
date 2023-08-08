@@ -21,3 +21,8 @@ RSpec.describe User, type: :model do
         it 'returns true for valid name' do
             expect(user.valid_name?(user.name)).to eq(true)
           end
+
+          it 'returns false for invalid name' do
+            expect(user.valid_name?('John Doe5')).to eq(false)
+          end
+        end
