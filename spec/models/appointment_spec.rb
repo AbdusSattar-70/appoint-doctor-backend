@@ -39,3 +39,10 @@ RSpec.describe Appointment, type: :model do
         appointment1.doctor_id = nil
         expect(appointment1).not_to be_valid
       end
+
+      it 'is valid with all required attributes' do
+        expect(appointment1).to be_valid
+        expect(appointment2).to be_valid
+      end
+    end
+  end
