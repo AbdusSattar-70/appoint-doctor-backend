@@ -17,3 +17,7 @@ RSpec.describe User, type: :model do
 
     describe 'valid_name? method' do
         let(:user) { create(:user, :patient) }
+
+        it 'returns true for valid name' do
+            expect(user.valid_name?(user.name)).to eq(true)
+          end
