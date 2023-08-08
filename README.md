@@ -118,6 +118,8 @@ Clone this repository to your desired folder:
 cd appoint-doctor-backend
 npm install
 bundle install
+rails db:create
+rails db:migrate
 rails s
 ```
 
