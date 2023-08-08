@@ -20,3 +20,12 @@ RSpec.describe Appointment, type: :model do
       }
     }
   end
+
+  context 'validations' do
+    let(:appointment1) { Appointment.new(appointment_params) }
+    let(:appointment2) { Appointment.new(appointment_params) }
+​
+    it 'is not valid when appointment date is nil' do
+      appointment1.appointment_date = nil
+      expect(appointment1).not_to be_valid
+    end
