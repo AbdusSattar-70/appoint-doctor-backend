@@ -29,3 +29,7 @@ RSpec.describe User, type: :model do
     describe 'callbacks' do
             let(:user) { create(:user, :doctor) }
             it 'downcases the role before saving' do
+                expect(user.role).to eq('doctor')
+            end
+          end
+        end
