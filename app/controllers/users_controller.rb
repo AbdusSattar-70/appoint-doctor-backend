@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:destroy]
   before_action :authorize_super_admin_or_admin, only: %i[create destroy]
 
   # GET /users
