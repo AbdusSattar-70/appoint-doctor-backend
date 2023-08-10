@@ -1,0 +1,154 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/appointments":
+    post:
+      summary: Create an appointment
+      tags:
+      - Appointments
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization token
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: appointment created
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appointment_date:
+                  type: string
+                  format: date
+                patient_id:
+                  type: integer
+                doctor_id:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                  - active
+                  - expire
+                  - cancel
+                location:
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                    state:
+                      type: string
+                    city:
+                      type: string
+                    zip_code:
+                      type: string
+              required:
+              - appointment_date
+              - patient_id
+              - doctor_id
+              - status
+              - location
+  "/users":
+    get:
+      summary: Retrieve all users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: users found
+    post:
+      summary: Create a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful for doctor
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                role:
+                  type: string
+                age:
+                  type: integer
+                email:
+                  type: string
+                address:
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    zip_code:
+                      type: string
+                photo:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                qualification:
+                  type: string
+                description:
+                  type: string
+                experiences:
+                  type: integer
+                available_from:
+                  type: string
+                  format: date-time
+                available_to:
+                  type: string
+                  format: date-time
+                consultation_fee:
+                  type: number
+                rating:
+                  type: number
+                specialization:
+                  type: string
+              required:
+              - name
+              - role
+              - age
+              - email
+              - address
+              - photo
+              - password
+              - password_confirmation
+  "/users/{id}":
+    get:
+      summary: Retrieve a user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user found
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
