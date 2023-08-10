@@ -68,7 +68,7 @@ class UsersController < ApplicationController
   end
 
   def authorize_super_admin_or_admin
-    return if current_user.super_admin? || current_user.admin?
+    return if User.doctors? || User.admins?
 
     render json: { error: 'Unauthorized' }, status: :unauthorized
   end
